@@ -1,0 +1,4 @@
+com\springway\base\AbstractDbunitTestCase.class
+com\springway\AppTest.class
+com\springway\dao\TestUserDao.class
+com\springway\utils\TestCalculate.class

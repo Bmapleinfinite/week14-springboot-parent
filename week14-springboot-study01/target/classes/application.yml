@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: "springboot-study"
+  profiles:
+    active: "pre"

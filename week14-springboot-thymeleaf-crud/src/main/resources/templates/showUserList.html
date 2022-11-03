@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>展示所有用户信息</title>
+    <style>
+        table {
+            width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <a th:href="@{/toAddUser}">添加用户</a>
+        <table border="1px">
+            <tr>
+                <td>ID</td>
+                <td>用户名</td>
+                <td>密码</td>
+                <td>操作</td>
+            </tr>
+            <th:block th:each=" user : ${userList}">
+                <tr>
+                    <td th:text="${user.id}">1</td>
+                    <td th:text="${user.username}">springway</td>
+                    <td th:text="${user.password}">123456</td>
+                    <td>
+                        <a th:href="@{'deleteUser?id=' + ${user.id}}">删除</a>
+                        <a th:href="@{'toUpdate?id=' + ${user.id}}">修改</a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </center>
+</body>
+
+</html>

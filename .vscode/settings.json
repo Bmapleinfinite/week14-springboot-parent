@@ -1,0 +1,19 @@
+{
+    "java.dependency.packagePresentation": "flat",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "javaee_2208_db",
+            "database": "javaee_2208_db",
+            "username": "root",
+            "password": "ZMQaishiteru1229"
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.springway.App",
+            "projectName": "week14-test-simple"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.springway.App",
+            "projectName": "week14-springboot-mybatis-plus"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThymeleafApplication",
+            "request": "launch",
+            "mainClass": "com.springway.ThymeleafApplication",
+            "projectName": "week14-springboot-thymeleaf-crud"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThymeleafApplication",
+            "request": "launch",
+            "mainClass": "com.springway.ThymeleafApplication",
+            "projectName": "week14-springboot-thymeleaf"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<week14-springboot-mybatis>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.springway.Application",
+            "projectName": "week14-springboot-mybatis",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<week14-springboot-study01>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.springway.Application",
+            "projectName": "week14-springboot-study01",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

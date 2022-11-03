@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--
+     configuration中有appender、logger、root三个节点
+      appender：表示的是定义了一种文件的输出格式  就有点类似于 变量进行了定义 但是没有来得及使用
+      logger：这个就表示的是我们定义了这个变量在哪一个局部能够使用
+              我们的日志原本是针对于整个工程的配置  但是你可以定义在哪一个包里面  使用什么日志输出格式 以及 输出到哪些地方
+      root：相当于定义的是整个项目 的日志输出级别  以及 输出日志到哪些地方
+    -->
+
+    <!--
+       定义了日志的输出  ConsoleAppender  这个类表示的是输出到控制台
+    -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!--设置输出到控制台的编码和格式
+
+        %d{yyyy-MM-dd-HH:mm:ss.SSS}：这个表示的是时间的引用
+        %level：当前输出的日志级别
+        [%thread]：表示当前是哪一个线程
+        %class：这个表示的是这个日志是在哪一个类中打印出来的
+        %line：这个表示的是打印这个日志是在这个类的 哪一行打印出来的
+        %msg：这个表示的是打印的消息是什么
+        %n：这个表示的是换行
+        -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS}------->%level--------->[%thread]-%class:%line----->%msg%n</pattern>
+            <!--设置了打印到控制台的编码-->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--
+       定义日志输出到文件的格式
+       name：是可以随便写的   FileAppender：输出到文件
+    -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+
+        <!--这个表示的是日志文件输出的路径  这个默认表示的是输出到当前项目的根目录下 叫做file.log-->
+        <file>log/file.log</file>
+        <!--这个表示的是 每一次写日志的时候是在上一次的基础上进行追加-->
+        <append>true</append>
+        <encoder>
+            <!--定义了输出的格式-->
+            <pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} %level	[%thread]-%class:%line>>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!--
+            prudent=true：表示的是日志的写入是线程安全的、但是线程安全会降低效率  一般默认设置为false
+        -->
+        <prudent>false</prudent>
+    </appender>
+
+    <!--
+       RollingFileAppender：表示的是日志要滚动输出
+
+    -->
+    <appender name="timeFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--
+            rollingPolicy滚动的策略
+            TimeBasedRollingPolicy：最常用的一个、根据时间进行滚动 当达到一定的时间的时候、就会自动开辟一个新的日志文件
+            FixedWindowRollingPolicy：根据固定窗口的算法重命名文件的滚动策略
+            TriggeringPolicy：根据当前活动文件的大小来来确定是否滚动
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件的名字  引用了当前的日期-->
+            <fileNamePattern>log/logFile%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--生成这个日志文件 保留多少天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--编码的格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} %level	[%thread]-%class:%line>>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--
+       RollingFileAppender：这个是滚动输出
+       FixedWindowRollingPolicy：根据活动窗口算法的大小来滚动输出
+
+    -->
+    <appender name="fixedFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志的名字-->
+        <file>log/fixedFile.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>log/fixedFile%i.log.zip</fileNamePattern>
+            <!--最少生成一个日志文件-->
+            <minIndex>1</minIndex>
+            <!--最多生成3个日志文件-->
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <!--根据文件的大小来设置滚动输出的-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!--日志文件的最大的大小-->
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <!--日志输出的格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} %level	[%thread]-%class:%line>>%msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--文件输出-->
+    <appender name="filter" class="ch.qos.logback.core.FileAppender">
+        <file>log/filter.log</file>
+        <append>true</append>
+        <!--
+            LevelFilter：的意思是添加了一个日志级别的过滤器
+            如果日志的级别等于配置的级别。那么则执行onMatch里面的配置
+            否则执行 onMismatch中的内容
+        -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <!--
+                 ACCEPT：当前的日志会立即被执行不经过其他的过滤器了
+                 DENY：日志立即被抛弃、也不再经过其他的过滤器了
+                 NEUTRAL:下一个过滤器将继续执行、如果是最后一个过滤器的话那么就会被执行
+            -->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--临界值过滤器：如果你输出的日志级别 是低于下面定义的这个级别的话那么 就会被过滤掉-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} %level	[%thread]-%class:%line>>%msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <prudent>false</prudent>
+    </appender>
+
+    <!--设置局部的 这个日志的输出级别 或者 是 在哪里输出日志-->
+
+
+    <!--    <logger name="com.qf.springboot.controller" level="trace" addtivity="false">
+            <appender-ref ref="stdout" />
+            <appender-ref ref="file" />
+            <appender-ref ref="timeFile" />
+        </logger>-->
+
+
+
+    <!--这个是给全局设置一个日志级别  所有的都适用
+        appender-ref ：全局的日志我们要打印到哪些地方
+
+    -->
+    <root level="info">
+        <appender-ref ref="stdout" />
+        <!--<appender-ref ref="file" />-->
+<!--        <appender-ref ref="timeFile" />-->
+        <!--<appender-ref ref="fixedFile" />-->
+        <!--<appender-ref ref="filter" />-->
+    </root>
+
+</configuration>
