@@ -5,6 +5,13 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "com.springway.App",
+            "projectName": "week16-jedis-simple"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.springway.App",
             "projectName": "week14-test-simple"
         },
         {

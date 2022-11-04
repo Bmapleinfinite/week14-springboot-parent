@@ -14,6 +14,9 @@
         <module>week14-test-simple</module>
         <module>week15-springboot-swagger2</module>
         <module>week15-springboot-security</module>
+        <module>week16-jedis-simple</module>
+        <module>week16-myjedis-client</module>
+        <module>week16-springboot-jedis</module>
     </modules>
 
     <parent>

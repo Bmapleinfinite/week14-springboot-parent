@@ -15,5 +15,8 @@
             "username": "root",
             "password": "ZMQaishiteru1229"
         }
+    ],
+    "cSpell.words": [
+        "Jedis"
     ]
 }
